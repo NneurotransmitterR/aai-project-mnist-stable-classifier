@@ -1,5 +1,9 @@
 # Dataset
 processed_data/**/*.npy
+# data_inspection.ipynb
+
+# Temporary files
+temp.ipynb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
