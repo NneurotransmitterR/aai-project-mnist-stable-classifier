@@ -14,6 +14,7 @@ import pathlib
 from tqdm import tqdm
 from torch import nn, optim, autograd
 from torch.utils.data import DataLoader
+import matplotlib.pyplot as plt
 from models.MLP import *
 from models.CNN import *
 from OddMNIST import *
@@ -134,6 +135,11 @@ pretty_print('step', 'train nll', 'train acc', 'train penalty', 'test acc')
 
 def main():
     # for step in range(flags.steps):
+    # record loss and accuracy
+    loss_hist = []
+    penalized_loss_hist = []
+    train_acc_hist = []
+    val_acc_hist = []
     for step in tqdm(range(flags.steps)):
         for env in envs:
             logits = model(env['images'])
@@ -144,6 +150,9 @@ def main():
         train_nll = torch.stack([envs[0]['nll'], envs[1]['nll']]).mean()
         train_acc = torch.stack([envs[0]['acc'], envs[1]['acc']]).mean()
         train_penalty = torch.stack([envs[0]['penalty'], envs[1]['penalty']]).mean()
+
+        train_acc_hist.append(train_acc.detach().cpu().numpy())
+        loss_hist.append(train_nll.detach().cpu().numpy())
 
         weight_norm = torch.tensor(0.).cuda()
         for w in model.parameters():
@@ -158,11 +167,15 @@ def main():
             # Rescale the entire loss to keep gradients in a reasonable range
             loss /= penalty_weight
 
+        penalized_loss_hist.append(loss.detach().cpu().numpy())
+
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
         val_acc = envs[1]['acc']
+        val_acc_hist.append(val_acc.detach().cpu().numpy())
+
         if step % 100 == 0:
             pretty_print(
                 np.int32(step),
@@ -179,6 +192,16 @@ def main():
         print('Final validation acc (mean/std):')
         print(np.mean(final_test_accs), np.std(final_test_accs))
 
+    # Plot loss and accuracy
+    plt.plot(loss_hist, 'b-', label='Training Loss')
+    plt.plot(penalized_loss_hist, 'y-', label='Penalized Training Loss')
+    plt.plot(train_acc_hist, 'r-', label='Training Accuracy')
+    plt.plot(val_acc_hist, 'g-', label='Validation Accuracy')
+    plt.title('Loss and Accuracy')
+    plt.xlabel('Steps')
+    plt.ylabel('Loss/Accuracy')
+    plt.legend()
+    plt.show()
     # Save model parameters
     torch.save(model.state_dict(), './saved_models/{}_{}_{}.pth'.format(flags.model, flags.steps, flags.seed))
 
