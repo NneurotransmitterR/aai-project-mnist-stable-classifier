@@ -37,6 +37,7 @@ aai-project-mnist-stable-classifier/
 
 ## References
 Codes for these papers are used in this project:
+1. [InvariantRiskMinimization](https://github.com/facebookresearch/InvariantRiskMinimization)
 ```
 @article{InvariantRiskMinimization,
     title={Invariant Risk Minimization},
