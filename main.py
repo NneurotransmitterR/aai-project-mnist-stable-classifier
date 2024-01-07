@@ -1,11 +1,10 @@
 #
-# Originally from code 'main.py' for the paper 'Invariant Risk Minimization'
-# 
+# Adapted from code 'main.py' for the paper 'Invariant Risk Minimization'
 #
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 #
-# Adopted by Kejie Zhao on Jan 6 2024
+# Adapted by Kejie Zhao on Jan 6 2024
 #
 
 import argparse
