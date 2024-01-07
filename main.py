@@ -1,5 +1,6 @@
 #
 # Originally from code 'main.py' for the paper 'Invariant Risk Minimization'
+# 
 #
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
@@ -174,11 +175,12 @@ def main():
 
         final_train_accs.append(train_acc.detach().cpu().numpy())
         final_test_accs.append(val_acc.detach().cpu().numpy())
-        print('Final train acc (mean/std):')
+        print('\nFinal train acc (mean/std):')
         print(np.mean(final_train_accs), np.std(final_train_accs))
         print('Final validation acc (mean/std):')
         print(np.mean(final_test_accs), np.std(final_test_accs))
 
+    # Save model parameters
     torch.save(model.state_dict(), './saved_models/{}_{}_{}.pth'.format(flags.model, flags.steps, flags.seed))
 
 
