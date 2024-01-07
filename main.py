@@ -19,13 +19,13 @@ from models.CNN import *
 from OddMNIST import *
 
 parser = argparse.ArgumentParser(description='OddMNIST')
-parser.add_argument('--hidden_dim', type=int, default=256)
+parser.add_argument('--hidden_dim', type=int, default=512)
 parser.add_argument('--l2_regularizer_weight', type=float, default=0.001)
 parser.add_argument('--lr', type=float, default=0.001)
 parser.add_argument('--n_restarts', type=int, default=10)
 parser.add_argument('--penalty_anneal_iters', type=int, default=100)
 parser.add_argument('--penalty_weight', type=float, default=10000.0)
-parser.add_argument('--steps', type=int, default=1000)
+parser.add_argument('--steps', type=int, default=10000)
 parser.add_argument('--grayscale_model', action='store_true', default=True)
 parser.add_argument('--model', type=str, default='mlp')
 parser.add_argument('--dataset_root', type=str, default='./processed_data/')

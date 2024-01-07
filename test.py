@@ -9,7 +9,7 @@ from models.OCNN import *
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 test_data_dir = './processed_data/test'
-model_name_irm = 'mlp_1000_20240106.pth'
+model_name_irm = 'mlp_10000_20240106.pth'
 model_name_ocnn = 'OriginalMNISTClassifier.pth'
 predicted_label_list = []
 true_label_list = []
