@@ -3,8 +3,8 @@ Train a classifier for modified MNIST with unstable (spurious) features.
 
 
 ## How to use
-1. Install the requirements in 'requirements.txt'.
-2. Extract the data to the 'processed_data' folder.
+1. Install the requirements in `requirements.txt`.
+2. Extract the data to the `processed_data/` folder.
 3. Run the test script with `python test.py`.
 
 ## Optional
